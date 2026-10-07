@@ -1,9 +1,9 @@
 package autohub;
 
-public class SUV extends Car {
+public class MPV extends Car {
     private int kapasitasPenumpang;
 
-    public SUV(String merek, String model, int tahun,
+    public MPV(String merek, String model, int tahun,
                double harga, String warna, int kapasitasPenumpang) {
 
         super(merek, model, tahun, harga, warna);
@@ -24,7 +24,7 @@ public class SUV extends Car {
 
     @Override
     public void tampilkanInfo() {
-        System.out.println("Jenis  : SUV");
+        System.out.println("Jenis  : MPV");
         super.tampilkanInfo();
         System.out.println("Kapasitas Penumpang : "
                 + kapasitasPenumpang + " orang");

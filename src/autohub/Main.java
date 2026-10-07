@@ -6,26 +6,22 @@ public class Main {
 
     private static Scanner input = new Scanner(System.in);
 
-    // Array untuk menyimpan objek mobil
+    // ARRAY SUPERTYPE
+    // Dapat menyimpan objek Sedan, SUV, dan MPV
     private static Car[] daftarMobil = new Car[50];
 
-    // Menyimpan jumlah data yang masuk ke array
     private static int jumlahData = 0;
 
     public static void main(String[] args) {
 
-        // Membuat 4 objek awal
         isiDataAwal();
 
         int pilihan;
 
-        // Looping utama program
         do {
             tampilkanMenu();
-
             pilihan = bacaInt("Pilih menu: ");
 
-            // Switch-case untuk menu
             switch (pilihan) {
 
                 case 1:
@@ -41,25 +37,29 @@ public class Main {
                     break;
 
                 case 4:
+                    menuSimulasi();
+                    break;
+
+                case 5:
                     System.out.println(
-                        "\nTerima kasih telah menggunakan AutoHub."
+                            "\nTerima kasih telah menggunakan AutoHub."
                     );
                     break;
 
                 default:
                     System.out.println(
-                        "Pilihan tidak tersedia. Silakan pilih 1-4."
+                            "Pilihan tidak tersedia. Silakan pilih 1-5."
                     );
             }
 
-        } while (pilihan != 4);
+        } while (pilihan != 5);
 
         input.close();
     }
 
-    // =========================================================
+    // ==============================
     // MENU UTAMA
-    // =========================================================
+    // ==============================
 
     public static void tampilkanMenu() {
 
@@ -69,60 +69,71 @@ public class Main {
         System.out.println("1. Tambah Mobil");
         System.out.println("2. Tampilkan Semua Mobil");
         System.out.println("3. Cari Mobil");
-        System.out.println("4. Keluar");
+        System.out.println("4. Simulasi Mobil");
+        System.out.println("5. Keluar");
         System.out.println("========================================");
     }
 
-    // =========================================================
+    // ==============================
     // DATA AWAL
-    // =========================================================
+    // ==============================
 
     public static void isiDataAwal() {
 
         daftarMobil[jumlahData++] =
-            new Sedan(
-                "Toyota",
-                "Camry",
-                2025,
-                800000000,
-                "Hitam",
-                4
-            );
+                new Sedan(
+                        "Toyota",
+                        "Camry",
+                        2025,
+                        800000000,
+                        "Hitam",
+                        4
+                );
 
         daftarMobil[jumlahData++] =
-            new Sedan(
-                "Honda",
-                "Civic",
-                2026,
-                650000000,
-                "Putih",
-                4
-            );
+                new Sedan(
+                        "Honda",
+                        "Civic",
+                        2026,
+                        650000000,
+                        "Putih",
+                        4
+                );
 
         daftarMobil[jumlahData++] =
-            new SUV(
-                "Toyota",
-                "Fortuner",
-                2025,
-                620000000,
-                "Silver",
-                7
-            );
+                new SUV(
+                        "Toyota",
+                        "Fortuner",
+                        2025,
+                        620000000,
+                        "Silver",
+                        7
+                );
 
         daftarMobil[jumlahData++] =
-            new SUV(
-                "Mitsubishi",
-                "Pajero Sport",
-                2026,
-                750000000,
-                "Merah",
-                7
-            );
+                new SUV(
+                        "Mitsubishi",
+                        "Pajero Sport",
+                        2026,
+                        750000000,
+                        "Merah",
+                        7
+                );
+
+        daftarMobil[jumlahData++] =
+                new MPV(
+                        "Toyota",
+                        "Innova Zenix",
+                        2026,
+                        500000000,
+                        "Putih",
+                        7
+                );
     }
 
-    // =========================================================
+    // ==============================
     // TAMBAH MOBIL
-    // =========================================================
+    // ==============================
 
     public static void tambahMobil() {
 
@@ -134,10 +145,11 @@ public class Main {
         System.out.println("\n--- TAMBAH MOBIL ---");
         System.out.println("1. Sedan");
         System.out.println("2. SUV");
+        System.out.println("3. MPV");
 
         int jenis = bacaInt("Pilih jenis mobil: ");
 
-        if (jenis != 1 && jenis != 2) {
+        if (jenis < 1 || jenis > 3) {
             System.out.println("Jenis mobil tidak valid.");
             return;
         }
@@ -151,32 +163,47 @@ public class Main {
         if (jenis == 1) {
 
             int jumlahPintu =
-                bacaInt("Jumlah pintu: ");
+                    bacaInt("Jumlah pintu: ");
 
             daftarMobil[jumlahData] =
-                new Sedan(
-                    merek,
-                    model,
-                    tahun,
-                    harga,
-                    warna,
-                    jumlahPintu
-                );
+                    new Sedan(
+                            merek,
+                            model,
+                            tahun,
+                            harga,
+                            warna,
+                            jumlahPintu
+                    );
+
+        } else if (jenis == 2) {
+
+            int kapasitas =
+                    bacaInt("Kapasitas penumpang: ");
+
+            daftarMobil[jumlahData] =
+                    new SUV(
+                            merek,
+                            model,
+                            tahun,
+                            harga,
+                            warna,
+                            kapasitas
+                    );
 
         } else {
 
             int kapasitas =
-                bacaInt("Kapasitas penumpang: ");
+                    bacaInt("Kapasitas penumpang: ");
 
             daftarMobil[jumlahData] =
-                new SUV(
-                    merek,
-                    model,
-                    tahun,
-                    harga,
-                    warna,
-                    kapasitas
-                );
+                    new MPV(
+                            merek,
+                            model,
+                            tahun,
+                            harga,
+                            warna,
+                            kapasitas
+                    );
         }
 
         jumlahData++;
@@ -184,9 +211,9 @@ public class Main {
         System.out.println("Mobil berhasil ditambahkan.");
     }
 
-    // =========================================================
+    // ==============================
     // TAMPILKAN SEMUA MOBIL
-    // =========================================================
+    // ==============================
 
     public static void tampilkanSemuaMobil() {
 
@@ -202,21 +229,27 @@ public class Main {
             System.out.println("\nData ke-" + (i + 1));
             System.out.println("----------------------------------------");
 
-            // Memanggil tampilkanInfo()
+            /*
+             * RUNTIME POLYMORPHISM &
+             * DYNAMIC BINDING
+             *
+             * Reference bertipe Car,
+             * tetapi objek sebenarnya dapat berupa
+             * Sedan, SUV, atau MPV.
+             */
             daftarMobil[i].tampilkanInfo();
         }
 
         System.out.println("----------------------------------------");
-
         System.out.println(
-            "Total objek mobil dibuat: "
-            + Car.getJumlahMobil()
+                "Total objek mobil dibuat: "
+                + Car.getJumlahMobil()
         );
     }
 
-    // =========================================================
+    // ==============================
     // MENU PENCARIAN
-    // =========================================================
+    // ==============================
 
     public static void menuPencarian() {
 
@@ -224,55 +257,56 @@ public class Main {
         System.out.println("1. Cari berdasarkan merek");
         System.out.println("2. Cari berdasarkan harga maksimal");
         System.out.println(
-            "3. Cari berdasarkan merek dan harga maksimal"
+                "3. Cari berdasarkan merek dan harga maksimal"
         );
 
         int pilihan =
-            bacaInt("Pilih pencarian: ");
+                bacaInt("Pilih pencarian: ");
 
         if (pilihan == 1) {
 
             String merek =
-                bacaString("Masukkan merek: ");
+                    bacaString("Masukkan merek: ");
 
             cariMobil(merek);
 
         } else if (pilihan == 2) {
 
             double harga =
-                bacaDouble("Masukkan harga maksimal: ");
+                    bacaDouble("Masukkan harga maksimal: ");
 
             cariMobil(harga);
 
         } else if (pilihan == 3) {
 
             String merek =
-                bacaString("Masukkan merek: ");
+                    bacaString("Masukkan merek: ");
 
             double harga =
-                bacaDouble("Masukkan harga maksimal: ");
+                    bacaDouble("Masukkan harga maksimal: ");
 
             cariMobil(merek, harga);
 
         } else {
 
             System.out.println(
-                "Pilihan pencarian tidak valid."
+                    "Pilihan pencarian tidak valid."
             );
         }
     }
 
-    // =========================================================
+    // ==============================
+    // COMPILE-TIME POLYMORPHISM
     // METHOD OVERLOADING
-    // =========================================================
+    // ==============================
 
-    // Overload 1
+    // Overloading 1
     public static void cariMobil(String merek) {
 
         boolean ditemukan = false;
 
         System.out.println(
-            "\nHasil pencarian merek: " + merek
+                "\nHasil pencarian merek: " + merek
         );
 
         for (int i = 0; i < jumlahData; i++) {
@@ -284,7 +318,7 @@ public class Main {
                 daftarMobil[i].tampilkanInfo();
 
                 System.out.println(
-                    "----------------------------------------"
+                        "----------------------------------------"
                 );
 
                 ditemukan = true;
@@ -293,19 +327,19 @@ public class Main {
 
         if (!ditemukan) {
             System.out.println(
-                "Mobil dengan merek tersebut tidak ditemukan."
+                    "Mobil dengan merek tersebut tidak ditemukan."
             );
         }
     }
 
-    // Overload 2
+    // Overloading 2
     public static void cariMobil(double hargaMaksimal) {
 
         boolean ditemukan = false;
 
         System.out.printf(
-            "\nHasil pencarian harga <= Rp%,.0f%n",
-            hargaMaksimal
+                "\nHasil pencarian harga <= Rp%,.0f%n",
+                hargaMaksimal
         );
 
         for (int i = 0; i < jumlahData; i++) {
@@ -316,7 +350,7 @@ public class Main {
                 daftarMobil[i].tampilkanInfo();
 
                 System.out.println(
-                    "----------------------------------------"
+                        "----------------------------------------"
                 );
 
                 ditemukan = true;
@@ -325,12 +359,12 @@ public class Main {
 
         if (!ditemukan) {
             System.out.println(
-                "Tidak ada mobil yang sesuai."
+                    "Tidak ada mobil yang sesuai."
             );
         }
     }
 
-    // Overload 3
+    // Overloading 3
     public static void cariMobil(
             String merek,
             double hargaMaksimal) {
@@ -338,9 +372,9 @@ public class Main {
         boolean ditemukan = false;
 
         System.out.printf(
-            "\nHasil pencarian %s dengan harga <= Rp%,.0f%n",
-            merek,
-            hargaMaksimal
+                "\nHasil pencarian %s dengan harga <= Rp%,.0f%n",
+                merek,
+                hargaMaksimal
         );
 
         for (int i = 0; i < jumlahData; i++) {
@@ -348,13 +382,14 @@ public class Main {
             if (daftarMobil[i]
                     .getMerek()
                     .equalsIgnoreCase(merek)
-                    && daftarMobil[i].getHarga()
+                    &&
+                daftarMobil[i].getHarga()
                     <= hargaMaksimal) {
 
                 daftarMobil[i].tampilkanInfo();
 
                 System.out.println(
-                    "----------------------------------------"
+                        "----------------------------------------"
                 );
 
                 ditemukan = true;
@@ -363,14 +398,97 @@ public class Main {
 
         if (!ditemukan) {
             System.out.println(
-                "Tidak ada mobil yang sesuai."
+                    "Tidak ada mobil yang sesuai."
             );
         }
     }
 
-    // =========================================================
+    // ==============================
+    // MENU SIMULASI
+    // ==============================
+
+    public static void menuSimulasi() {
+
+        System.out.println("\n=========== SIMULASI MOBIL ===========");
+
+        if (jumlahData == 0) {
+            System.out.println("Belum ada data mobil.");
+            return;
+        }
+
+        System.out.println("Daftar mobil:");
+
+        for (int i = 0; i < jumlahData; i++) {
+
+            System.out.println(
+                    (i + 1) + ". "
+                    + daftarMobil[i].getMerek()
+                    + " "
+                    + daftarMobil[i].getModel()
+            );
+        }
+
+        int pilihan =
+                bacaInt("Pilih nomor mobil: ");
+
+        if (pilihan < 1 || pilihan > jumlahData) {
+
+            System.out.println(
+                    "Nomor mobil tidak valid."
+            );
+
+            return;
+        }
+
+        /*
+         * Reference daftarMobil[pilihan - 1]
+         * bertipe Car.
+         *
+         * Tetapi objek aslinya dapat berupa:
+         * Sedan, SUV, atau MPV.
+         *
+         * Method prosesMobil() menerima
+         * parameter bertipe Car.
+         */
+        prosesMobil(
+                daftarMobil[pilihan - 1]
+        );
+    }
+
+    // ==============================
+    // RUNTIME POLYMORPHISM
+    // DYNAMIC BINDING
+    // ==============================
+
+    public static void prosesMobil(Car mobil) {
+
+        System.out.println("\n--- PROSES / SIMULASI MOBIL ---");
+
+        System.out.println(
+                "Sistem menerima objek melalui reference Car."
+        );
+
+        System.out.println(
+                "Data mobil:"
+        );
+
+        /*
+         * Dynamic Binding terjadi di sini.
+         *
+         * Parameter bertipe Car,
+         * tetapi method tampilkanInfo()
+         * yang dijalankan mengikuti objek sebenarnya.
+         */
+        mobil.tampilkanInfo();
+
+        System.out.println(
+                "\nSimulasi berhasil dijalankan."
+        );
+    }
+
+    // ==============================
     // INPUT STRING
-    // =========================================================
+    // ==============================
 
     public static String bacaString(String pesan) {
 
@@ -379,9 +497,9 @@ public class Main {
         return input.nextLine();
     }
 
-    // =========================================================
+    // ==============================
     // INPUT INTEGER
-    // =========================================================
+    // ==============================
 
     public static int bacaInt(String pesan) {
 
@@ -392,22 +510,24 @@ public class Main {
                 System.out.print(pesan);
 
                 int nilai =
-                    Integer.parseInt(input.nextLine());
+                        Integer.parseInt(
+                                input.nextLine()
+                        );
 
                 return nilai;
 
             } catch (NumberFormatException e) {
 
                 System.out.println(
-                    "Input harus berupa angka bulat."
+                        "Input harus berupa angka bulat."
                 );
             }
         }
     }
 
-    // =========================================================
+    // ==============================
     // INPUT DOUBLE
-    // =========================================================
+    // ==============================
 
     public static double bacaDouble(String pesan) {
 
@@ -418,14 +538,16 @@ public class Main {
                 System.out.print(pesan);
 
                 double nilai =
-                    Double.parseDouble(input.nextLine());
+                        Double.parseDouble(
+                                input.nextLine()
+                        );
 
                 return nilai;
 
             } catch (NumberFormatException e) {
 
                 System.out.println(
-                    "Input harus berupa angka."
+                        "Input harus berupa angka."
                 );
             }
         }
