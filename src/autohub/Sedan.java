@@ -1,11 +1,10 @@
 package autohub;
 
-public class Sedan extends Car {
+public class Sedan extends Car implements DapatDijual {
     private int jumlahPintu;
 
     public Sedan(String merek, String model, int tahun,
                  double harga, String warna, int jumlahPintu) {
-
         super(merek, model, tahun, harga, warna);
         setJumlahPintu(jumlahPintu);
     }
@@ -20,6 +19,20 @@ public class Sedan extends Car {
         } else {
             this.jumlahPintu = 4;
         }
+    }
+
+    @Override
+    public void hitungPajak() {
+        double pajak = getHarga() * 0.02;
+        System.out.printf("Pajak Sedan: Rp%,.0f%n", pajak);
+    }
+
+    @Override
+    public void prosesPenjualan() {
+        System.out.println(
+            "Penjualan Sedan " + getMerek() + " "
+            + getModel() + " sedang diproses."
+        );
     }
 
     @Override

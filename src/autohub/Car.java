@@ -1,6 +1,6 @@
 package autohub;
 
-public class Car {
+public abstract class Car {
     private String merek;
     private String model;
     private int tahun;
@@ -11,17 +11,14 @@ public class Car {
 
     public Car(String merek, String model, int tahun,
                double harga, String warna) {
-
         setMerek(merek);
         setModel(model);
         setTahun(tahun);
         setHarga(harga);
         setWarna(warna);
-
         jumlahMobil++;
     }
 
-    // Getter dan Setter
     public String getMerek() {
         return merek;
     }
@@ -82,12 +79,13 @@ public class Car {
         }
     }
 
-    // Static
     public static int getJumlahMobil() {
         return jumlahMobil;
     }
 
-    // Method yang akan dioverride oleh subclass
+    // Abstract method: wajib di-override oleh subclass.
+    public abstract void hitungPajak();
+
     public void tampilkanInfo() {
         System.out.println("Merek  : " + merek);
         System.out.println("Model  : " + model);

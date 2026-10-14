@@ -1,11 +1,13 @@
 package autohub;
 
-public class SUV extends Car {
+public class SUV extends Car
+        implements DapatDijual, DapatDites {
+
     private int kapasitasPenumpang;
 
     public SUV(String merek, String model, int tahun,
-               double harga, String warna, int kapasitasPenumpang) {
-
+               double harga, String warna,
+               int kapasitasPenumpang) {
         super(merek, model, tahun, harga, warna);
         setKapasitasPenumpang(kapasitasPenumpang);
     }
@@ -23,10 +25,33 @@ public class SUV extends Car {
     }
 
     @Override
+    public void hitungPajak() {
+        double pajak = getHarga() * 0.025;
+        System.out.printf("Pajak SUV: Rp%,.0f%n", pajak);
+    }
+
+    @Override
+    public void prosesPenjualan() {
+        System.out.println(
+            "Penjualan SUV " + getMerek() + " "
+            + getModel() + " sedang diproses."
+        );
+    }
+
+    @Override
+    public void testDrive() {
+        System.out.println(
+            "Test drive SUV " + getMerek() + " "
+            + getModel() + " siap dilakukan."
+        );
+    }
+
+    @Override
     public void tampilkanInfo() {
         System.out.println("Jenis  : SUV");
         super.tampilkanInfo();
-        System.out.println("Kapasitas Penumpang : "
-                + kapasitasPenumpang + " orang");
+        System.out.println(
+            "Kapasitas Penumpang: " + kapasitasPenumpang + " orang"
+        );
     }
 }
