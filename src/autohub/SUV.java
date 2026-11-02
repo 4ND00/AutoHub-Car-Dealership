@@ -1,57 +1,33 @@
 package autohub;
 
-public class SUV extends Car
-        implements DapatDijual, DapatDites {
-
+public class SUV extends Car implements DapatDijual, DapatDites {
     private int kapasitasPenumpang;
 
-    public SUV(String merek, String model, int tahun,
-               double harga, String warna,
-               int kapasitasPenumpang) {
+    public SUV(String merek, String model, int tahun, double harga, String warna, int kapasitasPenumpang) {
         super(merek, model, tahun, harga, warna);
-        setKapasitasPenumpang(kapasitasPenumpang);
-    }
-
-    public int getKapasitasPenumpang() {
-        return kapasitasPenumpang;
-    }
-
-    public void setKapasitasPenumpang(int kapasitasPenumpang) {
-        if (kapasitasPenumpang >= 2 && kapasitasPenumpang <= 15) {
-            this.kapasitasPenumpang = kapasitasPenumpang;
-        } else {
-            this.kapasitasPenumpang = 7;
-        }
-    }
-
-    @Override
-    public void hitungPajak() {
-        double pajak = getHarga() * 0.025;
-        System.out.printf("Pajak SUV: Rp%,.0f%n", pajak);
-    }
-
-    @Override
-    public void prosesPenjualan() {
-        System.out.println(
-            "Penjualan SUV " + getMerek() + " "
-            + getModel() + " sedang diproses."
-        );
-    }
-
-    @Override
-    public void testDrive() {
-        System.out.println(
-            "Test drive SUV " + getMerek() + " "
-            + getModel() + " siap dilakukan."
-        );
+        this.kapasitasPenumpang = kapasitasPenumpang;
     }
 
     @Override
     public void tampilkanInfo() {
         System.out.println("Jenis  : SUV");
         super.tampilkanInfo();
-        System.out.println(
-            "Kapasitas Penumpang: " + kapasitasPenumpang + " orang"
-        );
+        System.out.println("Kapasitas penumpang: " + kapasitasPenumpang);
+    }
+
+    @Override
+    public void hitungPajak() {
+        double pajak = getHarga() * 0.025;
+        System.out.printf("Estimasi pajak SUV (2,5%%): Rp%,.0f%n", pajak);
+    }
+
+    @Override
+    public void prosesPenjualan() {
+        System.out.println("SUV memenuhi syarat untuk diproses penjualannya.");
+    }
+
+    @Override
+    public void testDrive() {
+        System.out.println("Test drive SUV dapat dijadwalkan.");
     }
 }
